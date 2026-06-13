@@ -1,0 +1,34 @@
+How to make:
+-Install VSCode.
+-Install py2exe extension.
+-Code AutoManifest.py.
+-Export as .exe.
+
+How to use:
+-Unzip individual patch files into folders in mod folder.
+-Organize mod folder to match desired Arsenal layout.
+	-The mod, option, and sub-option names are defined by the folder/sub-folder names.
+	-The folder layout must match the desired layout in Arsenal: the main mod folder for the 
+	mod, the option folders for the different assets that can be altered, and the sub-option 
+	folders for the different ways those assets can be altered.
+-Add and organize images.
+	-Images can be anywhere in the mod folder/sub-folders, but their name must match the 
+	folder name of the mod/option/sub-option they apply to. They must also be .jpg or .png.
+-Run .exe.
+-Enter mod folder directory (as prompted).
+-Exit .exe (as prompted).
+-Add descriptions (as desired).
+	-If the .exe is run on a mod folder that contains a pre-existing manifest, the version, 
+	guid, and descriptions will be preserved, assuming the mod/option/sub-option names are 
+	the same. In any case, the pre-existing manifest will be saved to a .txt file, so you 
+	won't lose anything if the process doesn't work.
+-Zip everything in the mod folder, including the new manifest.
+-Profit.
+
+Important notes:
+-The code and instructions shown in the video are from the Legacy001 version, which is not the 
+current version, but the functionality of the two is essentially the same. The only difference is 
+that making a new manifest no longer requires you to manually type in a guid. The main coding 
+difference is that the current version uses the json library (thanks to Dekr0 from the Helldivers 
+2 modding discord).
+-I'm already working on a 2.0 version, but who knows when that will be finished.
