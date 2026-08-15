@@ -1,34 +1,69 @@
-How to make:
--Install VSCode.
--Install py2exe extension.
--Code AutoManifest.py.
--Export as .exe.
+AutoManifest: a one-click manifest creator tool for Helldivers 2 mod authors.
 
-How to use:
--Unzip individual patch files into folders in mod folder.
--Organize mod folder to match desired Arsenal layout.
-	-The mod, option, and sub-option names are defined by the folder/sub-folder names.
-	-The folder layout must match the desired layout in Arsenal: the main mod folder for the 
-	mod, the option folders for the different assets that can be altered, and the sub-option 
-	folders for the different ways those assets can be altered.
--Add and organize images.
-	-Images can be anywhere in the mod folder/sub-folders, but their name must match the 
-	folder name of the mod/option/sub-option they apply to. They must also be .jpg or .png.
--Run .exe.
--Enter mod folder directory (as prompted).
--Exit .exe (as prompted).
--Add descriptions (as desired).
-	-If the .exe is run on a mod folder that contains a pre-existing manifest, the version, 
-	guid, and descriptions will be preserved, assuming the mod/option/sub-option names are 
-	the same. In any case, the pre-existing manifest will be saved to a .txt file, so you 
-	won't lose anything if the process doesn't work.
--Zip everything in the mod folder, including the new manifest.
--Profit.
+Designed to automatically generate or update a mod’s manifest.json file by scanning the structure of a mod folder and its contents.
 
-Important notes:
--The code and instructions shown in the video are from the Legacy001 version, which is not the 
-current version, but the functionality of the two is essentially the same. The only difference is 
-that making a new manifest no longer requires you to manually type in a guid. The main coding 
-difference is that the current version uses the json library (thanks to Dekr0 from the Helldivers 
-2 modding discord).
--I'm already working on a 2.0 version, but who knows when that will be finished.
+How to use the tool to create a large/AIO mod:
+- Create mod folder.
+- Create organization folders in the mod folder (such as armors, weapons, stratagems, etc.). It is highly recommended to number them based on your desired order of appearance (“01 Armors”, “02 Weapons”, “03 Stratagems”, etc.). If organization doesn’t matter, just create one folder.
+- Decompress your existing mod files into option folders. Each option folder should hold the actual ".patch_#" files.
+- Sort option folders into their respective organization folders.
+- Combine option folders that change the same asset (such as a certain mesh, LUT, etc.) into an option folder holding sub-option folders. If you have patch files that should be applied regardless of which sub-option is applied, put those patch files in the option folder alongside the sub-option folders.
+- Make sure folder names match their respective mod/option/sub-option names.
+- If you decide to use images (must be .jpg or .png), make sure images are named correctly or are in their respective leaf folders:
+  - Mod cover image: image name must match mod folder name.
+  - Option images:
+    - For options with sub-options: image names must match option folder names.
+    - For options without sub-options: image names must match option folder names OR be in said option folders.
+  - Sub-option images: image names must match “[option folder name] [sub-option folder name]”s OR be in said sub-option folders.
+  - Adhering to this schema allows images to be stored anywhere you wish in the mod folder (such as in an images folder, etc.).
+- Run the tool, paste in the mod directory, and let it generate the manifest automatically.
+- If you decide to use descriptions, type mod/option/sub-option descriptions in the manifest.
+- Compress the mod folder’s contents into a zip/7z/etc. ready for upload.
+
+How to use the tool to update a large/AIO mod (only works for mods structured as above):
+- Decompress the mod into a mod folder.
+- Add, edit, and remove the desired organizations, options and sub-options.
+- If needed, rename images to match their updated directory paths (see schema above).
+- Run the tool, paste in the mod directory (containing a pre-existing manifest), and let it update the manifest.json and old_manifests.txt history file automatically.
+- Make sure none of the descriptions have been “disconnected” via folder renames or reorganizations. If they have, copy and paste them from previous manifest in old_manifests.txt.
+
+This tool greatly reduces one of the hardest parts of making a large/AIO mod: writing and maintaining the manifest.
+
+The AutoManifest tool can save mod authors time by automatically creating structured, updateable manifests, as long as they organize and name things correctly.
+
+
+
+What the tool does (optional read):
+- Asks for the directory of the mod folder.
+- Checks for an existing manifest.json.
+  - If one exists, it saves a backup to an old_manifests.txt history file.
+  - It preserves important fields:
+    - Mod version.
+    - Mod GUID.
+    - Mod description.
+    - Option and sub-option descriptions, assuming their names have stayed the same.
+- If no manifest exists, it builds one from scratch based on a 3-layer folder structure:
+  - 1. Organization layer: groups categories like armors, weapons, stratagems, etc..
+  - 2. Option layer: individual assets being changed, such as individual meshes or LUTs.
+  - 3. Sub-option layer: alternate versions of the same asset, where only one can be applied.
+  - At each layer, all items are added alphabetically.
+- Defines mod, option and sub-option names by their respective folder names.
+- Searches the entire mod directory for images (.jpg and .png):
+  - Mod cover image: image name must match mod folder name.
+  - Option images:
+    - For options with sub-options: image names must match option folder name.
+    - For options without sub-options: image names must match option folder name OR be in said option folder.
+  - Sub-option images: image names must match “[option folder name] [sub-option folder name]” OR be in said sub-option folder.
+- Finishes by:
+  - Making a manifest.json (if being run for the first time).
+  - Updating the manifest.json and making/updating an old_manifests.txt (if being run on an existing mod).
+
+How to make it yourself with the AutoManifest.py file (optional read):
+- Install VSCode.
+- Install py2exe extension.
+- Code AutoManifest.py.
+- Export as .exe.
+
+
+
+See https://github.com/TrooperC6P7/Helldivers_II for more information and materials.
